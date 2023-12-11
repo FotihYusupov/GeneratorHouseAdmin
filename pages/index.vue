@@ -10,7 +10,7 @@
       <h2 class="text-3xl font-bold mb-4">Kategoriyalar</h2>
     </div>
     <div class="sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      <ul class="flex justify-between flex-wrap">
+      <ul class="flex justify-between flex-wrap mb-20">
         <h2 v-show="cards.loading"><loading/></h2>
         <Card
           v-for="card in cards.data"
@@ -19,6 +19,23 @@
           :cardLink="card.link"
         />
       </ul>
+    </div>
+  </div>
+  <div class="mb-16">
+    <div class="w-96 ml-auto">
+      <h2 class="text-2xl">"Generator Hause" admin paneli</h2>
+      <p class="w-64 ml-auto"><a href="hyperNova.uz">"HyperNova.uz"</a> tomonidan yaratildi.</p>
+    </div>
+    <div class="mt-12 mb-6">
+      <p class="text-xl"><b class="mr-2">Admin panelidagi login va parolni:</b>Hech qachon hech kimga bermang.</p>
+      <p class="text-xl"><b class="mr-2">Qandaydir xatolik yuz bersa:</b><a href="hyperNova.uz">"HyperNova.uz"</a> bilan a'loqaga chiqing.</p>
+    </div>
+    <div>
+      <p class="text-xl"><b class="mr-2">Texnik yordam: </b><a href="tel:+998944125626">+998 (94) 412-56-26</a></p>
+      <p class="text-xl"><b class="mr-2">Telegram:</b><a href="https://t.me/HyperNova_PM">@HyperNova_PM</a></p>
+    </div>
+    <div>
+
     </div>
   </div>
 </template>

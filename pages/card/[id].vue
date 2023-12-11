@@ -15,13 +15,13 @@
                 class="max-w-xs w-72 ml-4 bg-white shadow-lg rounded-lg overflow-hidden mb-5 border transition-transform transform p-3"
             >
                 <img
-                    class="rounded-t-lg bg-gray-400 mb-2"
+                    class="rounded-t-lg bg-gray-400 mb-2 w-64 h-48"
                     :src="product.product_img[0]"
                     width="300"
                     height="200"
                 />
                 <h2 class="text-2xl"><b>{{ product.product_title }}</b></h2>
-                <p><b>Price:</b> {{ product.product_price }} so'm</p>
+                <p v-if="product.product_price > 0"><b>Price:</b> {{ product.product_price }} so'm</p>
                 <p>{{ product.new_price > 0 ? `Chegirma: ${product.new_price} so'm` : '' }}</p>
                 <p class="text-sm font-medium">{{ product.product_desc }}</p>
                 <form id="add" @submit="addImg" class="mt-3">
@@ -30,11 +30,12 @@
                         name="images"
                         type="file"
                         id="inputFile"
+                        accept=".png"
                         required
                     />
                     <button class="btn block w-full focus:outline-none text-white bg-blue-600 hover:bg-blue-600 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-blue-900">Rasm qo'shish</button>
                 </form>
-                <button @click="offerFormBtn(product._id)" :id="'offerFormBtn_' + product._id" class="block w-full focus:outline-none text-white bg-blue-600 hover:bg-blue-600 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-blue-900">Chegirma qilish</button>
+                <button @click="offerFormBtn(product._id)" v-if="product.product_price > 0" :id="'offerFormBtn_' + product._id" class="block w-full focus:outline-none text-white bg-blue-600 hover:bg-blue-600 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-blue-900">Chegirma qilish</button>
                 <div :id="'offerForm_' + product._id" :data-id="product._id" class="hidden">
                     <form @submit="offerProduct" :data-id="product._id" class="offerForm">
                         <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" placeholder="Chegirma narxi" :id="'inp_' + product._id" type="number"/>
@@ -59,7 +60,7 @@
                 <option class="bg-white block p-5" v-for="category in categories" :key="category._id" :value="category._id">{{ category.category_name }}</option>
             </select>
             <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Product Narxi</label>
-            <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" id="productPrice" type="number" name="productPrice" required/>
+            <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" id="productPrice" type="number" name="productPrice"/>
             <input class="block mb-2 w-full text-sm text-slate-500
                 file:mr-4 file:py-2 file:px-4
                 file:rounded-full file:border-0
@@ -70,6 +71,7 @@
                 required
                 name="images"
                 id="productImg"
+                accept=".png"
                 multiple
             />
             <div id="div">
@@ -95,12 +97,12 @@
                 <option class="bg-white block p-5" v-for="category in categories" :key="category._id" :value="category._id">{{ category.category_name }}</option>
             </select>
             <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Product Price</label>
-            <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" id="editProductPrice" type="number" name="productPrice" required/>
+            <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" id="editProductPrice" type="number" name="productPrice"/>
             <h2 class="block text-gray-700 text-sm font-bold mb-2">Images</h2>
             <div v-for="img in findImages">
                 <span class="flex justify-between border-b-2 p-2">
                     <a :href="img" target="_blank">{{ getImgName(img) }}</a>
-                    <p @click="removeImage" :id="img" class="text-red-600">O'chirish</p>
+                    <p @click="removeImage" :id="img" class="text-red-600 cursor-pointer">O'chirish</p>
                 </span>
             </div>
             <div id="div" class="mt-2">
@@ -212,9 +214,11 @@
             const data = {}
             data.productTitle = productTitle.value
             data.productDesc = productDesc.value
-            data.productPrice = productPrice.value
             data.category = category.value
             data.information = information
+            if(productPrice.value.length > 0) {
+                data.productPrice = productPrice.value
+            }
             const response = await axios.post(`https://gh-admin.onrender.com/api/add-product`, data, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -324,10 +328,12 @@
             const data = {}
             data.productTitle = editProductTitle.value
             data.productDesc = editProductDesc.value
-            data.productPrice = editProductPrice.value
             data.category = editCategory.value
             data.productImg = findImages.value
             data.information = information
+            if(editProductPrice.value.length > 0) {
+                data.productPrice = editProductPrice.value
+            }
             const response = await axios.put(`https://gh-admin.onrender.com/api/update-product/${updateProductId.value}`, data, {
                 headers: {
                     'Content-Type': 'application/json',
