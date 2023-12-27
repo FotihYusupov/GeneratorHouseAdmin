@@ -55,9 +55,14 @@
             <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Qo'shimcha ma'lumotlar</label>
             <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" name="productDesc" id="productDesc" required/>
             <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Kategoryalar</label>
-            <select class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none bg-white focus:shadow-outline focus:border-blue-600" name="category" id="category">
+            <select class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none bg-white focus:shadow-outline focus:border-blue-600" name="category" id="category" required>
                 <option selected disabled>Kategoriyani Tanlang</option>
                 <option class="bg-white block p-5" v-for="category in categories" :key="category._id" :value="category._id">{{ category.category_name }}</option>
+            </select>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Brand</label>
+            <select class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none bg-white focus:shadow-outline focus:border-blue-600" name="category" id="brand" required>
+                <option selected disabled>Brandni Tanlang</option>
+                <option class="bg-white block p-5" v-for="brand in brands" :key="brand._id" :value="brand._id">{{ brand.brand_name }}</option>
             </select>
             <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Product Narxi</label>
             <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" id="productPrice" type="number" name="productPrice"/>
@@ -95,6 +100,11 @@
             <select class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none bg-white focus:shadow-outline focus:border-blue-600" name="category" id="editCategory">
                 <option selected disabled>Kategoriyani Tanlang</option>
                 <option class="bg-white block p-5" v-for="category in categories" :key="category._id" :value="category._id">{{ category.category_name }}</option>
+            </select>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Select Brand</label>
+            <select class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none bg-white focus:shadow-outline focus:border-blue-600" name="category" id="editBrand">
+                <option selected disabled>Brandni Tanlang</option>
+                <option class="bg-white block p-5" v-for="brand in brands" :key="brand._id" :value="brand._id">{{ brand.brand_name }}</option>
             </select>
             <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Product Price</label>
             <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" id="editProductPrice" type="number" name="productPrice"/>
@@ -174,7 +184,7 @@
     const categories = ref([])
 
     const getCategories = async () => {
-        const response = await axios.get('https://gh-admin.onrender.com/api/categories');
+        const response = await axios.get('https://gh-server-83lb.onrender.com/api/categories');
         categories.value = response.data;
     }
     getCategories()
@@ -186,7 +196,7 @@
     async function getData() {
         try {
             actions.value.loading = true
-            const response = await axios.get(`https://gh-admin.onrender.com/api/category/${id}`);
+            const response = await axios.get(`https://gh-server-83lb.onrender.com/api/category/${id}`);
             if(response.status == 200) {
                 response.data.map(e => e.link = `/card/${e._id}`)
                 products.value = response.data
@@ -199,6 +209,19 @@
         }
     };
     getData()
+
+    const brands = ref([])
+    const getBrands = async () => {
+        try {
+            const res = await axios.get('https://gh-server-83lb.onrender.com/api/brands')
+            if(res.status === 200) {
+                brands.value = res.data
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    getBrands()
 
     const addGenerator = async (e) => {
         e.preventDefault();
@@ -215,28 +238,24 @@
             data.productTitle = productTitle.value
             data.productDesc = productDesc.value
             data.category = category.value
+            data.brand = brand.value
             data.information = information
             if(productPrice.value.length > 0) {
                 data.productPrice = productPrice.value
             }
-            const response = await axios.post(`https://gh-admin.onrender.com/api/add-product`, data, {
+            const response = await axios.post(`https://gh-server-83lb.onrender.com/api/add-product`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token.value}`,
                 },
             });
-
             const formData = new FormData(e.target);
-            try {
-                const res = await axios.put(`https://gh-admin.onrender.com/api/add-img/${response.data._id}`, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
-            } catch (error) {
-                console.error('Error uploading images:', error);
-            }
-
+            const res = await axios.put(`https://gh-server-83lb.onrender.com/api/add-img/${response.data._id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            counter.value = 0
             getData()
 
             closeModal();
@@ -253,7 +272,7 @@
         const listItem = event.target.closest('#item');
         const dataId = listItem.getAttribute('data-id');
         try {
-            const response = await axios.put(`https://gh-admin.onrender.com/api/add-img/${dataId}`, formData, {
+            const response = await axios.put(`https://gh-server-83lb.onrender.com/api/add-img/${dataId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -266,7 +285,7 @@
     };
 
     const deleteProduct = async (e) => {
-        await axios.delete(`https://gh-admin.onrender.com/api/delete/${e.target.id}`,  {
+        await axios.delete(`https://gh-server-83lb.onrender.com/api/delete/${e.target.id}`,  {
             headers: {
                 Authorization: `Bearer ${token.value}`,
             },
@@ -281,14 +300,15 @@
         updateProductId.value = e.target.id
         openEditModal()
         const id = e.target.closest('#item').getAttribute('data-id')
-        const product = await axios.get(`https://gh-admin.onrender.com/api/product/${id}`, {
+        const product = await axios.get(`https://gh-server-83lb.onrender.com/api/product/${id}`, {
             headers: {
                 Authorization: `Bearer ${token.value}`,
             },
         })
         editProductTitle.value = product.data.product_title;
         editProductDesc.value = product.data.product_desc;
-        editCategory.value = product.data.category;
+        editCategory.value = product.data.category._id;
+        editBrand.value = product.data.brand._id;
         editProductPrice.value = product.data.product_price;
         counter.value = product.data.information.length
         for(let i = 0; i < product.data.information.length; i++) {
@@ -329,12 +349,13 @@
             data.productTitle = editProductTitle.value
             data.productDesc = editProductDesc.value
             data.category = editCategory.value
+            data.brand = editBrand.value
             data.productImg = findImages.value
             data.information = information
             if(editProductPrice.value.length > 0) {
                 data.productPrice = editProductPrice.value
             }
-            const response = await axios.put(`https://gh-admin.onrender.com/api/update-product/${updateProductId.value}`, data, {
+            const response = await axios.put(`https://gh-server-83lb.onrender.com/api/update-product/${updateProductId.value}`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token.value}`,
@@ -356,7 +377,7 @@
         e.preventDefault()
         const id = e.target.getAttribute('data-id')
         const newPrice = document.querySelector(`#inp_${id}`).value
-        const res = await axios.put(`https://gh-admin.onrender.com/api/offer/${id}`, {
+        const res = await axios.put(`https://gh-server-83lb.onrender.com/api/offer/${id}`, {
             newPrice: newPrice
         },
             {
