@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div v-if="showModal" class="fixed inset-0 overflow-y-auto bg-black opacity-50"></div>
-    <div v-if="showModal" class="fixed inset-0 overflow-y-auto flex items-center justify-center z-30">
+    <div v-if="showModal" class="fixed inset-0 bg-black opacity-50"></div>
+    <div v-if="showModal" class="fixed inset-0 flex items-center justify-center z-30">
       <div class="bg-white p-6 rounded-lg shadow-2xl">
         <img @click="closeModal" class="cursor-pointer mb-2" src="~/public/x.svg" width="26" heigh="26">
         <div>

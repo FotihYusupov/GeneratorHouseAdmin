@@ -3,8 +3,23 @@
   <header class="mt-2 p-3 rounded flex justify-between" >
     <img src="../public/logo.png"/>
     <h1 class="text-4xl font-bold ">Admin panel</h1>
-    <button @click="logOut" type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Log Out</button>
+    <div class="flex items-center">
+      <button @click="logOut" type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Log Out</button>
+      <NuxtLink to="/rus" class="ml-2" @click="lang = !lang">
+        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+          <mask id="mask0_247_8597" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="21" height="20">
+            <circle cx="10.9766" cy="10" r="10" fill="#D9D9D9"/>
+          </mask>
+          <g mask="url(#mask0_247_8597)">
+            <path d="M26.2202 6.82337H-5.02344V0.538708C-5.02344 0.241222 -4.78221 0 -4.48473 0H25.6815C25.979 0 26.2202 0.241222 26.2202 0.538708L26.2202 6.82337Z" fill="#F5F5F5"/>
+            <path d="M25.6815 20.47H-4.48473C-4.78221 20.47 -5.02344 20.2288 -5.02344 19.9313V13.6467H26.2202V19.9313C26.2202 20.2288 25.9789 20.47 25.6815 20.47Z" fill="#FF4B55"/>
+            <path d="M26.2202 6.82337H-5.02344V13.6467H26.2202V6.82337Z" fill="#41479B"/>
+          </g>
+        </svg>
+      </NuxtLink>
+    </div>
   </header>
+
   <div class="mx-auto mt-8">
     <div class="flex justify-between mb-4">
       <h2 class="text-3xl font-bold mb-4">Kategoriyalar</h2>
@@ -22,9 +37,11 @@
       </ul>
     </div>
   </div>
-  <div class="mb-16">
+
+
+  <footer class="mb-16">
     <div class="w-96 ml-auto">
-      <h2 class="text-2xl">"Generator Hause" admin paneli</h2>
+      <h2 class="text-2xl">"Generator House" admin paneli</h2>
       <p class="w-64 ml-auto"><a href="http://hyperNova.uz">"HyperNova.uz"</a> tomonidan yaratildi.</p>
     </div>
     <div class="mt-12 mb-6">
@@ -36,9 +53,8 @@
       <p class="text-xl"><b class="mr-2">Telegram:</b><a href="https://t.me/HyperNova_PM">@HyperNova_PM</a></p>
     </div>
     <div>
-
     </div>
-  </div>
+  </footer>
 </template>
 
 <script setup>

@@ -1,11 +1,11 @@
 <template>
     <div class="mt-3">
         <div class="flex justify-between">
-            <button @click="openModal" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-600">Product Qo'shish</button>
-            <NuxtLink to="/" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-600">Home</NuxtLink>
+            <button @click="openModal" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-600">Добавить продукт</button>
+            <NuxtLink to="/rus" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-600">Домашняя страница</NuxtLink>
         </div>
         <div v-show="actions.loading"><loading/></div>
-        <p class="mt-24 text-3xl text-center" v-if="products?.length == 0">Bu kategoriya bo'yicha praductlar mavjud emas.</p>
+        <p class="mt-24 text-3xl text-center" v-if="products?.length == 0">В этой категории нет товаров.</p>
         <ul class="mt-5 flex flex-wrap justify-around items-start">
             <li
                 v-for="product in products"
@@ -33,10 +33,10 @@
                         accept=".png"
                         required
                     />
-                    <button class="btn block w-full focus:outline-none text-white bg-blue-600 hover:bg-blue-600 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-blue-900">Rasm qo'shish</button>
+                    <button class="btn block w-full focus:outline-none text-white bg-blue-600 hover:bg-blue-600 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-blue-900">Добавить изображение</button>
                 </form>
-                <button @click="offerFormBtn(product._id)" v-show="!product.offer" v-if="product.product_price > 0" :id="'offerFormBtn_' + product._id" class="block w-full focus:outline-none text-white bg-blue-600 hover:bg-blue-600 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-blue-900">Chegirma qilish</button>
-                <button @click="removeOffer(product._id)" v-show="product.offer" v-if="product.product_price > 0" :id="'offerFormBtn_' + product._id" class="block w-full focus:outline-none text-white bg-blue-600 hover:bg-blue-600 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-blue-900">Chegirmani Ochirish</button>
+                <button @click="offerFormBtn(product._id)" v-show="!product.offer" v-if="product.product_price > 0" :id="'offerFormBtn_' + product._id" class="block w-full focus:outline-none text-white bg-blue-600 hover:bg-blue-600 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-blue-900">Сделать скидку</button>
+                <button @click="removeOffer(product._id)" v-show="product.offer" v-if="product.product_price > 0" :id="'offerFormBtn_' + product._id" class="block w-full focus:outline-none text-white bg-blue-600 hover:bg-blue-600 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-blue-900">Отключить скидку</button>
                 <div :id="'offerForm_' + product._id" :data-id="product._id" class="hidden">
                     <form @submit="offerProduct" :data-id="product._id" class="offerForm">
                         <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" placeholder="Chegirma narxi" :id="'inp_' + product._id" type="number"/>
@@ -51,25 +51,25 @@
     <div v-show="isModalOpen" class="modal">
         <div class="modal-content">
             <div class="flex justify-between">
-                <h1 class="text-xl font-bold mb-4">Add Product</h1>
+                <h1 class="text-xl font-bold mb-4">Добавить продукт</h1>
                 <img @click="closeModal" class="cursor-pointer mb-2" src="~/public/x.svg" width="26" heigh="26">
             </div>
             <form class="w-96" id="form"  @submit="addGenerator">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="productTitle">Product nomi</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="productTitle">Название продукта</label>
                 <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" name="productTitle" id="productTitle" required/>
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Qo'shimcha ma'lumotlar</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Дополнительная информация</label>
                 <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" name="productDesc" id="productDesc" required/>
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Kategoryalar</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Категории</label>
                 <select class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none bg-white focus:shadow-outline focus:border-blue-600" name="category" id="category" required>
-                    <option selected disabled>Kategoriyani Tanlang</option>
+                    <option selected disabled>Выберите категорию</option>
                     <option class="bg-white block p-5" v-for="category in categories" :key="category._id" :value="category._id">{{ category.category_name }}</option>
                 </select>
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Brand</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Бренд</label>
                 <select class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none bg-white focus:shadow-outline focus:border-blue-600" name="category" id="brand" required>
-                    <option selected disabled>Brandni Tanlang</option>
+                    <option selected disabled>Выберите бренд</option>
                     <option class="bg-white block p-5" v-for="brand in brands" :key="brand._id" :value="brand._id">{{ brand.brand_name }}</option>
                 </select>
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Product Narxi</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Цена продукта</label>
                 <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" id="productPrice" type="number" name="productPrice"/>
                 <input class="block mb-2 w-full text-sm text-slate-500
                     file:mr-4 file:py-2 file:px-4
@@ -86,11 +86,11 @@
                 />
                 <div id="inputsWrapper">
                     <div class="flex justify-between items-center mb-2" @click="addElement('add')">
-                        <p class="block w-10 z-10 m-0 cursor-pointer">Qo'shimcha</p>
+                        <p class="block w-10 z-10 m-0 cursor-pointer">Дополнительный</p>
                         <span><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path opacity="1" fill="#1E3050" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg></span>
                     </div>
                 </div>
-                <button class="bg-blue-600 w-full text-white py-2 px-4 rounded-md hover:bg-blue-600">Submit</button>
+                <button class="bg-blue-600 w-full text-white py-2 px-4 rounded-md hover:bg-blue-600">Oтправлять</button>
             </form>
         </div>
     </div>
@@ -98,40 +98,40 @@
     <div v-show="isEditModalOpen" class="modal">
         <div class="modal-content">
             <div class="flex justify-between">
-                <h1 class="text-xl font-bold mb-4">Edit Product</h1>
+                <h1 class="text-xl font-bold mb-4">Редактировать продукт</h1>
                 <img @click="closeEditModal" class="cursor-pointer mb-2" src="~/public/x.svg" width="26" heigh="26">
             </div>
             <form class="w-96" id="form" @submit="updateProduct">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="productTitle">Product Title</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="productTitle">Название продукта</label>
                 <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" name="productTitle" id="editProductTitle" required/>
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Product Description</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Описание продукта</label>
                 <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" name="productDesc" id="editProductDesc" required/>
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Select Category</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">выберите категорию</label>
                 <select class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none bg-white focus:shadow-outline focus:border-blue-600" name="category" id="editCategory">
-                    <option selected disabled>Kategoriyani Tanlang</option>
+                    <option selected disabled>Выберите категорию</option>
                     <option class="bg-white block p-5" v-for="category in categories" :key="category._id" :value="category._id">{{ category.category_name }}</option>
                 </select>
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Select Brand</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">бренд</label>
                 <select class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none bg-white focus:shadow-outline focus:border-blue-600" name="category" id="editBrand">
-                    <option selected disabled>Brandni Tanlang</option>
+                    <option selected disabled>Выберите бренд</option>
                     <option class="bg-white block p-5" v-for="brand in brands" :key="brand._id" :value="brand._id">{{ brand.brand_name }}</option>
                 </select>
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Product Price</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Цена продукта</label>
                 <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" id="editProductPrice" type="number" name="productPrice"/>
-                <h2 class="block text-gray-700 text-sm font-bold mb-2">Images</h2>
+                <h2 class="block text-gray-700 text-sm font-bold mb-2">Изображений</h2>
                 <div v-for="img in findImages">
                     <span class="flex justify-between border-b-2 p-2">
                         <a :href="img" target="_blank">{{ getImgName(img) }}</a>
-                        <p @click="removeImage" :id="img" class="text-red-600 cursor-pointer">O'chirish</p>
+                        <p @click="removeImage" :id="img" class="text-red-600 cursor-pointer">удалить</p>
                     </span>
                 </div>
                 <div id="inputsWrapperEdit" class="mt-2">
                     <div class="flex justify-between items-center mb-2" @click="addElement('edit')">
-                        <p class="block w-10 z-10 m-0 cursor-pointer">Qo'shimcha</p>
+                        <p class="block w-10 z-10 m-0 cursor-pointer">Дополнительный</p>
                         <span><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path opacity="1" fill="#1E3050" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg></span>
                     </div>
                 </div>
-                <button class="bg-blue-600 w-full text-white py-2 px-4 rounded-md hover:bg-blue-600">Submit</button>
+                <button class="bg-blue-600 w-full text-white py-2 px-4 rounded-md hover:bg-blue-600">Oтправлять</button>
             </form>
         </div>
     </div>
@@ -196,6 +196,7 @@
         isEditModalOpen.value = true;
     };
     const closeEditModal = () => {
+        counter.value = 0;
         isEditModalOpen.value = false;
     };
 
@@ -203,7 +204,7 @@
     const categories = ref([])
 
     const getCategories = async () => {
-        const response = await axios.get('https://gh-server-83lb.onrender.com/api/categories');
+        const response = await axios.get('https://gh-server-83lb.onrender.com/api/ru/categories');
         categories.value = response.data;
     }
     getCategories()
@@ -215,7 +216,7 @@
     async function getData() {
         try {
             actions.value.loading = true
-            const response = await axios.get(`https://gh-server-83lb.onrender.com/api/category/${id}`);
+            const response = await axios.get(`https://gh-server-83lb.onrender.com/api/ru/category/${id}`);
             if(response.status == 200) {
                 response.data.map(e => e.link = `/card/${e._id}`)
                 products.value = response.data
@@ -262,14 +263,14 @@
             if(productPrice.value.length > 0) {
                 data.productPrice = productPrice.value
             }
-            const response = await axios.post(`https://gh-server-83lb.onrender.com/api/add-product`, data, {
+            const response = await axios.post(`https://gh-server-83lb.onrender.com/api/ru/add-product`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token.value}`,
                 },
             });
             const formData = new FormData(e.target);
-            const res = await axios.put(`https://gh-server-83lb.onrender.com/api/add-img/${response.data._id}`, formData, {
+            const res = await axios.put(`https://gh-server-83lb.onrender.com/api/ru/add-img/${response.data._id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -291,7 +292,7 @@
         const listItem = event.target.closest('#item');
         const dataId = listItem.getAttribute('data-id');
         try {
-            const response = await axios.put(`https://gh-server-83lb.onrender.com/api/add-img/${dataId}`, formData, {
+            const response = await axios.put(`https://gh-server-83lb.onrender.com/api/ru/add-img/${dataId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -305,7 +306,7 @@
 
     const deleteProduct = async (e) => {
         actions.value.loading = true;
-        await axios.delete(`https://gh-server-83lb.onrender.com/api/delete/${e.target.id}`,  {
+        await axios.delete(`https://gh-server-83lb.onrender.com/api/ru/delete/${e.target.id}`,  {
             headers: {
                 Authorization: `Bearer ${token.value}`,
             },
@@ -319,9 +320,8 @@
     const findProduct = async (e) => {
         updateProductId.value = e.target.id
         openEditModal()
-        actions.value.loading = true;
         const id = e.target.closest('#item').getAttribute('data-id')
-        const product = await axios.get(`https://gh-server-83lb.onrender.com/api/product/${id}`, {
+        const product = await axios.get(`https://gh-server-83lb.onrender.com/api/ru/product/${id}`, {
             headers: {
                 Authorization: `Bearer ${token.value}`,
             },
@@ -377,7 +377,7 @@
             if(editProductPrice.value.length > 0) {
                 data.productPrice = editProductPrice.value
             }
-            const response = await axios.put(`https://gh-server-83lb.onrender.com/api/update-product/${updateProductId.value}`, data, {
+            const response = await axios.put(`https://gh-server-83lb.onrender.com/api/ru/update-product/${updateProductId.value}`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token.value}`,
@@ -400,7 +400,7 @@
         actions.value.loading = true;
         const id = e.target.getAttribute('data-id')
         const newPrice = document.querySelector(`#inp_${id}`).value
-        const res = await axios.put(`https://gh-server-83lb.onrender.com/api/offer/${id}`, {
+        const res = await axios.put(`https://gh-server-83lb.onrender.com/api/ru/offer/${id}`, {
             newPrice: newPrice
         },
         {
@@ -417,7 +417,7 @@
 
     const removeOffer = async (id) => {
         actions.value.loading = true;
-        const res = await axios.put(`https://gh-server-83lb.onrender.com/api/delete-offer/${id}`, [],
+        const res = await axios.put(`https://gh-server-83lb.onrender.com/api/ru/delete-offer/${id}`, [],
         {
             headers: {
                 Authorization: `Bearer ${token.value}`,
