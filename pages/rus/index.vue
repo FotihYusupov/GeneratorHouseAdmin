@@ -59,16 +59,16 @@
 
   <footer class="mb-16">
     <div class="w-96 ml-auto">
-      <h2 class="text-2xl">"Generator House" admin paneli</h2>
-      <p class="w-64 ml-auto"><a href="http://hyperNova.uz">"HyperNova.uz"</a> tomonidan yaratildi.</p>
+      <h2 class="text-2xl">Панель администратора "Generator House"</h2>
+      <p class="w-64 ml-auto">Cделано <a href="http://hyperNova.uz">"HyperNova.uz"</a></p>
     </div>
     <div class="mt-12 mb-6">
-      <p class="text-xl"><b class="mr-2">Admin panelidagi login va parolni:</b>Hech qachon hech kimga bermang.</p>
-      <p class="text-xl"><b class="mr-2">Qandaydir xatolik yuz bersa:</b><a href="http://hyperNova.uz" target="_blank">"HyperNova.uz"</a> bilan a'loqaga chiqing.</p>
+      <p class="text-xl"><b class="mr-2">Логин и пароль от админ-панели:</b>Никогда и никому не отдавай.</p>
+      <p class="text-xl"><b class="mr-2">Если возникает ошибка:</b>связаться с <a href="http://hyperNova.uz" target="_blank">"HyperNova.uz"</a>.</p>
     </div>
     <div>
-      <p class="text-xl"><b class="mr-2">Texnik yordam: </b><a href="tel:+998944125626">+998 (94) 412-56-26</a></p>
-      <p class="text-xl"><b class="mr-2">Telegram:</b><a href="https://t.me/HyperNova_PM">@HyperNova_PM</a></p>
+      <p class="text-xl"><b class="mr-2">Техническая поддержка: </b><a href="tel:+998944125626">+998 (94) 412-56-26</a></p>
+      <p class="text-xl"><b class="mr-2">Телеграмм:</b><a href="https://t.me/HyperNova_PM">@HyperNova_PM</a></p>
     </div>
     <div>
     </div>

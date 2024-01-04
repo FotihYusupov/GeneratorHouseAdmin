@@ -1,7 +1,7 @@
 <template>
     <div class="flex justify-between items-center mt-5 mb-5">
-        <button @click="openAddModal()" class="bg-blue-600 text-white py-4 px-6 rounded-md hover:bg-blue-600">Brand Qo'shish</button>
-        <NuxtLink to="/" class="bg-blue-600 text-white py-4 px-6 rounded-md hover:bg-blue-700">Home</NuxtLink>
+        <button @click="openAddModal()" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-600">Brand Qo'shish</button>
+        <NuxtLink to="/" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">Asosiy Sahifa</NuxtLink>
     </div>
     <div class="mt-2">
         <ul class="flex flex-wrap justify-between">
@@ -14,18 +14,18 @@
     </div>
 
     <Modal :showModal="isAddModalOpen" @close="closeAddModal">
-        <h2 class="text-2xl">Add Brand</h2>
+        <h2 class="text-2xl">Brand Qo'shish</h2>
         <form @submit="addBrand" class="w-96 mt-5">
-            <input class="shadow mb-2 appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" id="brandName" placeholder="Brand Title"/>
-            <button class="bg-blue-600 w-full text-white py-3 px-5 rounded-md hover:bg-blue-600">Submit</button>
+            <input class="shadow mb-2 appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" id="brandName" placeholder="Brand Nomi"/>
+            <button class="bg-blue-600 w-full text-white py-3 px-5 rounded-md hover:bg-blue-600">Qo'shish</button>
         </form>
     </Modal>
     
     <Modal :showModal="isEditModalOpen" @close="closeEditModal">
-        <h2 class="text-2xl">Edit Brand</h2>
+        <h2 class="text-2xl">Brandni O'zgartirish</h2>
         <form @submit="editBrand" class="w-96 mt-5">
             <input class="shadow mb-2 appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" id="editBrandName" placeholder="Brand Title"/>
-            <button class="bg-blue-600 w-full text-white py-3 px-5 rounded-md hover:bg-blue-600">Submit</button>
+            <button class="bg-blue-600 w-full text-white py-3 px-5 rounded-md hover:bg-blue-600">O'zgartirish</button>
         </form>
     </Modal>
 </template>

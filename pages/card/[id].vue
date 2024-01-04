@@ -1,8 +1,8 @@
 <template>
     <div class="mt-3">
         <div class="flex justify-between">
-            <button @click="openModal" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-600">Product Qo'shish</button>
-            <NuxtLink to="/" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-600">Home</NuxtLink>
+            <button @click="openModal" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-600">Mahsulot Qo'shish</button>
+            <NuxtLink to="/" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-600">Asosiy Sahifa</NuxtLink>
         </div>
         <div v-show="actions.loading"><loading/></div>
         <p class="mt-24 text-3xl text-center" v-if="products?.length == 0">Bu kategoriya bo'yicha praductlar mavjud emas.</p>
@@ -21,7 +21,7 @@
                     height="200"
                 />
                 <h2 class="text-2xl truncate"><b>{{ product.product_title }}</b></h2>
-                <p v-if="product.product_price > 0"><b>Price:</b> {{ product.product_price }} so'm</p>
+                <p v-if="product.product_price > 0"><b>Narxi:</b> {{ product.product_price }} so'm</p>
                 <p>{{ product.new_price > 0 ? `Chegirma: ${product.new_price} so'm` : '' }}</p>
                 <p class="text-sm font-medium line-clamp-3">{{ product.product_desc }}</p>
                 <form v-if="product.product_img.length < 4" id="add" @submit="addImg" class="mt-3">
@@ -40,7 +40,7 @@
                 <div :id="'offerForm_' + product._id" :data-id="product._id" class="hidden">
                     <form @submit="offerProduct" :data-id="product._id" class="offerForm">
                         <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" placeholder="Chegirma narxi" :id="'inp_' + product._id" type="number"/>
-                        <button class="block w-full focus:outline-none text-white bg-blue-600 hover:bg-blue-600 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-blue-900">Submit</button>
+                        <button class="block w-full focus:outline-none text-white bg-blue-600 hover:bg-blue-600 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-blue-900">Chegirma Qilish</button>
                     </form>
                 </div>
                 <span :id="product._id" @click="deleteProduct" class="hover:opacity-80 block w-12 rounded absolute top-0 right-0 cursor-pointer p-3 px-3 bg-red-600" ><svg class="pointer-events-none" xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 448 512"><path opacity="1" fill="white" d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"/></svg></span>
@@ -51,11 +51,11 @@
     <div v-show="isModalOpen" class="modal">
         <div class="modal-content">
             <div class="flex justify-between">
-                <h1 class="text-xl font-bold mb-4">Add Product</h1>
+                <h1 class="text-xl font-bold mb-4">Mahsulot Qo'shish</h1>
                 <img @click="closeModal" class="cursor-pointer mb-2" src="~/public/x.svg" width="26" heigh="26">
             </div>
             <form class="w-96" id="form"  @submit="addGenerator">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="productTitle">Product nomi</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="productTitle">Mahsulot nomi</label>
                 <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" name="productTitle" id="productTitle" required/>
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Qo'shimcha ma'lumotlar</label>
                 <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" type="text" name="productDesc" id="productDesc" required/>
@@ -90,7 +90,7 @@
                 </div>
                 <div id="inputsWrapper">
                 </div>
-                <button class="bg-blue-600 w-full text-white py-2 px-4 rounded-md hover:bg-blue-600">Submit</button>
+                <button class="bg-blue-600 w-full text-white py-2 px-4 rounded-md hover:bg-blue-600">Qo'shish</button>
             </form>
         </div>
     </div>
@@ -203,7 +203,7 @@
     const categories = ref([])
 
     const getCategories = async () => {
-        const response = await axios.get('https://api.generatorhouse.uz/categories');
+        const response = await axios.get('https://api.generatorhouse.uz/api/categories');
         categories.value = response.data;
     }
     getCategories()
@@ -215,7 +215,7 @@
     async function getData() {
         try {
             actions.value.loading = true
-            const response = await axios.get(`https://api.generatorhouse.uz/category/${id}`);
+            const response = await axios.get(`https://api.generatorhouse.uz/api/category/${id}`);
             if(response.status == 200) {
                 response.data.map(e => e.link = `/card/${e._id}`)
                 products.value = response.data
@@ -232,7 +232,7 @@
     const brands = ref([])
     const getBrands = async () => {
         try {
-            const res = await axios.get('https://api.generatorhouse.uz/brands')
+            const res = await axios.get('https://api.generatorhouse.uz/api/brands')
             if(res.status === 200) {
                 brands.value = res.data
             }
@@ -262,14 +262,14 @@
             if(productPrice.value.length > 0) {
                 data.productPrice = productPrice.value
             }
-            const response = await axios.post(`https://api.generatorhouse.uz/add-product`, data, {
+            const response = await axios.post(`https://api.generatorhouse.uz/api/add-product`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token.value}`,
                 },
             });
             const formData = new FormData(e.target);
-            const res = await axios.put(`https://api.generatorhouse.uz/add-img/${response.data._id}`, formData, {
+            const res = await axios.put(`https://api.generatorhouse.uz/api/add-img/${response.data._id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -293,7 +293,7 @@
         const listItem = event.target.closest('#item');
         const dataId = listItem.getAttribute('data-id');
         try {
-            const response = await axios.put(`https://api.generatorhouse.uz/add-img/${dataId}`, formData, {
+            const response = await axios.put(`https://api.generatorhouse.uz/api/add-img/${dataId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -307,7 +307,7 @@
 
     const deleteProduct = async (e) => {
         actions.value.loading = true;
-        await axios.delete(`https://api.generatorhouse.uz/delete/${e.target.id}`,  {
+        await axios.delete(`https://api.generatorhouse.uz/api/delete/${e.target.id}`,  {
             headers: {
                 Authorization: `Bearer ${token.value}`,
             },
@@ -322,7 +322,7 @@
         updateProductId.value = e.target.id
         openEditModal()
         const id = e.target.closest('#item').getAttribute('data-id')
-        const product = await axios.get(`https://api.generatorhouse.uz/product/${id}`, {
+        const product = await axios.get(`https://api.generatorhouse.uz/api/product/${id}`, {
             headers: {
                 Authorization: `Bearer ${token.value}`,
             },
@@ -378,7 +378,7 @@
             if(editProductPrice.value.length > 0) {
                 data.productPrice = editProductPrice.value
             }
-            const response = await axios.put(`https://api.generatorhouse.uz/update-product/${updateProductId.value}`, data, {
+            const response = await axios.put(`https://api.generatorhouse.uz/api/update-product/${updateProductId.value}`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token.value}`,
@@ -401,7 +401,7 @@
         actions.value.loading = true;
         const id = e.target.getAttribute('data-id')
         const newPrice = document.querySelector(`#inp_${id}`).value
-        const res = await axios.put(`https://api.generatorhouse.uz/offer/${id}`, {
+        const res = await axios.put(`https://api.generatorhouse.uz/api/offer/${id}`, {
             newPrice: newPrice
         },
         {
@@ -418,7 +418,7 @@
 
     const removeOffer = async (id) => {
         actions.value.loading = true;
-        const res = await axios.put(`https://api.generatorhouse.uz/delete-offer/${id}`, [],
+        const res = await axios.put(`https://api.generatorhouse.uz/api/delete-offer/${id}`, [],
         {
             headers: {
                 Authorization: `Bearer ${token.value}`,
