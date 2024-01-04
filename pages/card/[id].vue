@@ -203,7 +203,7 @@
     const categories = ref([])
 
     const getCategories = async () => {
-        const response = await axios.get('http://194.190.152.238:3002/api/categories');
+        const response = await axios.get('https://api.generatorhouse.uz/categories');
         categories.value = response.data;
     }
     getCategories()
@@ -215,7 +215,7 @@
     async function getData() {
         try {
             actions.value.loading = true
-            const response = await axios.get(`http://194.190.152.238:3002/api/category/${id}`);
+            const response = await axios.get(`https://api.generatorhouse.uz/category/${id}`);
             if(response.status == 200) {
                 response.data.map(e => e.link = `/card/${e._id}`)
                 products.value = response.data
@@ -232,7 +232,7 @@
     const brands = ref([])
     const getBrands = async () => {
         try {
-            const res = await axios.get('http://194.190.152.238:3002/api/brands')
+            const res = await axios.get('https://api.generatorhouse.uz/brands')
             if(res.status === 200) {
                 brands.value = res.data
             }
@@ -262,14 +262,14 @@
             if(productPrice.value.length > 0) {
                 data.productPrice = productPrice.value
             }
-            const response = await axios.post(`http://194.190.152.238:3002/api/add-product`, data, {
+            const response = await axios.post(`https://api.generatorhouse.uz/add-product`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token.value}`,
                 },
             });
             const formData = new FormData(e.target);
-            const res = await axios.put(`http://194.190.152.238:3002/api/add-img/${response.data._id}`, formData, {
+            const res = await axios.put(`https://api.generatorhouse.uz/add-img/${response.data._id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -293,7 +293,7 @@
         const listItem = event.target.closest('#item');
         const dataId = listItem.getAttribute('data-id');
         try {
-            const response = await axios.put(`http://194.190.152.238:3002/api/add-img/${dataId}`, formData, {
+            const response = await axios.put(`https://api.generatorhouse.uz/add-img/${dataId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -307,7 +307,7 @@
 
     const deleteProduct = async (e) => {
         actions.value.loading = true;
-        await axios.delete(`http://194.190.152.238:3002/api/delete/${e.target.id}`,  {
+        await axios.delete(`https://api.generatorhouse.uz/delete/${e.target.id}`,  {
             headers: {
                 Authorization: `Bearer ${token.value}`,
             },
@@ -322,7 +322,7 @@
         updateProductId.value = e.target.id
         openEditModal()
         const id = e.target.closest('#item').getAttribute('data-id')
-        const product = await axios.get(`http://194.190.152.238:3002/api/product/${id}`, {
+        const product = await axios.get(`https://api.generatorhouse.uz/product/${id}`, {
             headers: {
                 Authorization: `Bearer ${token.value}`,
             },
@@ -378,7 +378,7 @@
             if(editProductPrice.value.length > 0) {
                 data.productPrice = editProductPrice.value
             }
-            const response = await axios.put(`http://194.190.152.238:3002/api/update-product/${updateProductId.value}`, data, {
+            const response = await axios.put(`https://api.generatorhouse.uz/update-product/${updateProductId.value}`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token.value}`,
@@ -401,7 +401,7 @@
         actions.value.loading = true;
         const id = e.target.getAttribute('data-id')
         const newPrice = document.querySelector(`#inp_${id}`).value
-        const res = await axios.put(`http://194.190.152.238:3002/api/offer/${id}`, {
+        const res = await axios.put(`https://api.generatorhouse.uz/offer/${id}`, {
             newPrice: newPrice
         },
         {
@@ -418,7 +418,7 @@
 
     const removeOffer = async (id) => {
         actions.value.loading = true;
-        const res = await axios.put(`http://194.190.152.238:3002/api/delete-offer/${id}`, [],
+        const res = await axios.put(`https://api.generatorhouse.uz/delete-offer/${id}`, [],
         {
             headers: {
                 Authorization: `Bearer ${token.value}`,
@@ -434,5 +434,3 @@
 <style>
     @import 'card.css'
 </style>
-
-{name: 'Admin',password: '123456'}

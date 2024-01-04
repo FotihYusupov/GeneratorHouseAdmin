@@ -204,7 +204,7 @@
     const categories = ref([])
 
     const getCategories = async () => {
-        const response = await axios.get('https://gh-server-83lb.onrender.com/api/ru/categories');
+        const response = await axios.get('https://api.generatorhouse.uz/api/ru/categories');
         categories.value = response.data;
     }
     getCategories()
@@ -216,7 +216,7 @@
     async function getData() {
         try {
             actions.value.loading = true
-            const response = await axios.get(`https://gh-server-83lb.onrender.com/api/ru/category/${id}`);
+            const response = await axios.get(`https://api.generatorhouse.uz/api/ru/category/${id}`);
             if(response.status == 200) {
                 response.data.map(e => e.link = `/card/${e._id}`)
                 products.value = response.data
@@ -233,7 +233,7 @@
     const brands = ref([])
     const getBrands = async () => {
         try {
-            const res = await axios.get('https://gh-server-83lb.onrender.com/api/brands')
+            const res = await axios.get('https://api.generatorhouse.uz/api/brands')
             if(res.status === 200) {
                 brands.value = res.data
             }
@@ -263,14 +263,14 @@
             if(productPrice.value.length > 0) {
                 data.productPrice = productPrice.value
             }
-            const response = await axios.post(`https://gh-server-83lb.onrender.com/api/ru/add-product`, data, {
+            const response = await axios.post(`https://api.generatorhouse.uz/api/ru/add-product`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token.value}`,
                 },
             });
             const formData = new FormData(e.target);
-            const res = await axios.put(`https://gh-server-83lb.onrender.com/api/ru/add-img/${response.data._id}`, formData, {
+            const res = await axios.put(`https://api.generatorhouse.uz/api/ru/add-img/${response.data._id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -294,7 +294,7 @@
         const listItem = event.target.closest('#item');
         const dataId = listItem.getAttribute('data-id');
         try {
-            const response = await axios.put(`https://gh-server-83lb.onrender.com/api/ru/add-img/${dataId}`, formData, {
+            const response = await axios.put(`https://api.generatorhouse.uz/api/ru/add-img/${dataId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -308,7 +308,7 @@
 
     const deleteProduct = async (e) => {
         actions.value.loading = true;
-        await axios.delete(`https://gh-server-83lb.onrender.com/api/ru/delete/${e.target.id}`,  {
+        await axios.delete(`https://api.generatorhouse.uz/api/ru/delete/${e.target.id}`,  {
             headers: {
                 Authorization: `Bearer ${token.value}`,
             },
@@ -323,7 +323,7 @@
         updateProductId.value = e.target.id
         openEditModal()
         const id = e.target.closest('#item').getAttribute('data-id')
-        const product = await axios.get(`https://gh-server-83lb.onrender.com/api/ru/product/${id}`, {
+        const product = await axios.get(`https://api.generatorhouse.uz/api/ru/product/${id}`, {
             headers: {
                 Authorization: `Bearer ${token.value}`,
             },
@@ -379,7 +379,7 @@
             if(editProductPrice.value.length > 0) {
                 data.productPrice = editProductPrice.value
             }
-            const response = await axios.put(`https://gh-server-83lb.onrender.com/api/ru/update-product/${updateProductId.value}`, data, {
+            const response = await axios.put(`https://api.generatorhouse.uz/api/ru/update-product/${updateProductId.value}`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token.value}`,
@@ -402,7 +402,7 @@
         actions.value.loading = true;
         const id = e.target.getAttribute('data-id')
         const newPrice = document.querySelector(`#inp_${id}`).value
-        const res = await axios.put(`https://gh-server-83lb.onrender.com/api/ru/offer/${id}`, {
+        const res = await axios.put(`https://api.generatorhouse.uz/api/ru/offer/${id}`, {
             newPrice: newPrice
         },
         {
@@ -419,7 +419,7 @@
 
     const removeOffer = async (id) => {
         actions.value.loading = true;
-        const res = await axios.put(`https://gh-server-83lb.onrender.com/api/ru/delete-offer/${id}`, [],
+        const res = await axios.put(`https://api.generatorhouse.uz/api/ru/delete-offer/${id}`, [],
         {
             headers: {
                 Authorization: `Bearer ${token.value}`,

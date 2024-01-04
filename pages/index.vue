@@ -82,7 +82,7 @@
   async function getData() {
     try {
       cards.value.loading = true;
-      const response = await axios.get('http://194.190.152.238:3002/api/categories');
+      const response = await axios.get('https://api.generatorhouse.uz/api/categories');
       if(response.status == 200) {
         response.data.map(e => e.link = `/card/${e._id}`)
         cards.value.data = response.data;
