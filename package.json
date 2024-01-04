@@ -4,11 +4,11 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev --host",
+    "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "prod": "node .output/server/index.mjs"
+    "prod": "NITRO_PORT=3001 node .output/server/index.mjs"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",

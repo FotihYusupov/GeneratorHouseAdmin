@@ -15,7 +15,7 @@
                 class="max-w-xs w-72 ml-4 bg-white shadow-lg rounded-lg overflow-hidden mb-5 border transition-transform transform p-3"
             >
                 <img
-                    class="rounded-t-lg bg-gray-400 mb-2 w-64 h-48"
+                    class="object-contain rounded-t-lg bg-gray-400 mb-2 w-64 h-48"
                     :src="product.product_img[0]"
                     width="300"
                     height="200"
@@ -58,7 +58,7 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="productTitle">Product nomi</label>
                 <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" name="productTitle" id="productTitle" required/>
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Qo'shimcha ma'lumotlar</label>
-                <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" name="productDesc" id="productDesc" required/>
+                <input class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" type="text" name="productDesc" id="productDesc" required/>
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="productDesc">Kategoryalar</label>
                 <select class="shadow mb-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none bg-white focus:shadow-outline focus:border-blue-600" name="category" id="category" required>
                     <option selected disabled>Kategoriyani Tanlang</option>
@@ -84,11 +84,11 @@
                     accept=".png"
                     multiple
                 />
+                <div class="flex justify-between items-center mb-2" @click="addElement('add')">
+                    <p class="block w-10 z-10 m-0 cursor-pointer">Qo'shimcha</p>
+                    <span><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path opacity="1" fill="#1E3050" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg></span>
+                </div>
                 <div id="inputsWrapper">
-                    <div class="flex justify-between items-center mb-2" @click="addElement('add')">
-                        <p class="block w-10 z-10 m-0 cursor-pointer">Qo'shimcha</p>
-                        <span><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path opacity="1" fill="#1E3050" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg></span>
-                    </div>
                 </div>
                 <button class="bg-blue-600 w-full text-white py-2 px-4 rounded-md hover:bg-blue-600">Submit</button>
             </form>
@@ -203,7 +203,7 @@
     const categories = ref([])
 
     const getCategories = async () => {
-        const response = await axios.get('https://gh-server-83lb.onrender.com/api/categories');
+        const response = await axios.get('http://194.190.152.238:3002/api/categories');
         categories.value = response.data;
     }
     getCategories()
@@ -215,7 +215,7 @@
     async function getData() {
         try {
             actions.value.loading = true
-            const response = await axios.get(`https://gh-server-83lb.onrender.com/api/category/${id}`);
+            const response = await axios.get(`http://194.190.152.238:3002/api/category/${id}`);
             if(response.status == 200) {
                 response.data.map(e => e.link = `/card/${e._id}`)
                 products.value = response.data
@@ -232,7 +232,7 @@
     const brands = ref([])
     const getBrands = async () => {
         try {
-            const res = await axios.get('https://gh-server-83lb.onrender.com/api/brands')
+            const res = await axios.get('http://194.190.152.238:3002/api/brands')
             if(res.status === 200) {
                 brands.value = res.data
             }
@@ -262,19 +262,21 @@
             if(productPrice.value.length > 0) {
                 data.productPrice = productPrice.value
             }
-            const response = await axios.post(`https://gh-server-83lb.onrender.com/api/add-product`, data, {
+            const response = await axios.post(`http://194.190.152.238:3002/api/add-product`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token.value}`,
                 },
             });
             const formData = new FormData(e.target);
-            const res = await axios.put(`https://gh-server-83lb.onrender.com/api/add-img/${response.data._id}`, formData, {
+            const res = await axios.put(`http://194.190.152.238:3002/api/add-img/${response.data._id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
             counter.value = 0
+            e.target.reset();
+            inputsWrapper.innerHTML = ''
             getData()
 
             closeModal();
@@ -291,7 +293,7 @@
         const listItem = event.target.closest('#item');
         const dataId = listItem.getAttribute('data-id');
         try {
-            const response = await axios.put(`https://gh-server-83lb.onrender.com/api/add-img/${dataId}`, formData, {
+            const response = await axios.put(`http://194.190.152.238:3002/api/add-img/${dataId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -305,7 +307,7 @@
 
     const deleteProduct = async (e) => {
         actions.value.loading = true;
-        await axios.delete(`https://gh-server-83lb.onrender.com/api/delete/${e.target.id}`,  {
+        await axios.delete(`http://194.190.152.238:3002/api/delete/${e.target.id}`,  {
             headers: {
                 Authorization: `Bearer ${token.value}`,
             },
@@ -314,14 +316,13 @@
     };
 
     const updateProductId = ref(null)
-    
+
     const findImages = ref([])
     const findProduct = async (e) => {
         updateProductId.value = e.target.id
         openEditModal()
-        actions.value.loading = true;
         const id = e.target.closest('#item').getAttribute('data-id')
-        const product = await axios.get(`https://gh-server-83lb.onrender.com/api/product/${id}`, {
+        const product = await axios.get(`http://194.190.152.238:3002/api/product/${id}`, {
             headers: {
                 Authorization: `Bearer ${token.value}`,
             },
@@ -377,7 +378,7 @@
             if(editProductPrice.value.length > 0) {
                 data.productPrice = editProductPrice.value
             }
-            const response = await axios.put(`https://gh-server-83lb.onrender.com/api/update-product/${updateProductId.value}`, data, {
+            const response = await axios.put(`http://194.190.152.238:3002/api/update-product/${updateProductId.value}`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token.value}`,
@@ -400,7 +401,7 @@
         actions.value.loading = true;
         const id = e.target.getAttribute('data-id')
         const newPrice = document.querySelector(`#inp_${id}`).value
-        const res = await axios.put(`https://gh-server-83lb.onrender.com/api/offer/${id}`, {
+        const res = await axios.put(`http://194.190.152.238:3002/api/offer/${id}`, {
             newPrice: newPrice
         },
         {
@@ -417,7 +418,7 @@
 
     const removeOffer = async (id) => {
         actions.value.loading = true;
-        const res = await axios.put(`https://gh-server-83lb.onrender.com/api/delete-offer/${id}`, [],
+        const res = await axios.put(`http://194.190.152.238:3002/api/delete-offer/${id}`, [],
         {
             headers: {
                 Authorization: `Bearer ${token.value}`,
@@ -433,3 +434,5 @@
 <style>
     @import 'card.css'
 </style>
+
+{name: 'Admin',password: '123456'}

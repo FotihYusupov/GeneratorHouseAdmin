@@ -96,7 +96,7 @@
             const data = {}
             data.brandName = editBrandName.value
             console.log(data)
-            const res = await axios.put(`https://gh-server-83lb.onrender.com/api/update-brand/${findBrandId.value}`, data, {
+            const res = await axios.put(`http://194.190.152.238:3002/api/update-brand/${findBrandId.value}`, data, {
                 header: {
                     'Content-type': 'application/json'
                 }

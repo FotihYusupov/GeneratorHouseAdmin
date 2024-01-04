@@ -35,7 +35,7 @@
           userName: loginUserName.value,
           password: loginPassword.value
         };
-        const response = await axios.post('https://gh-server-83lb.onrender.com/api/login', userData);
+        const response = await axios.post('http://194.190.152.238:3002/api/login', userData);
         if (response.status === 200) {
             localStorage.setItem('token', JSON.stringify(response.data))
             await navigateTo('/');
