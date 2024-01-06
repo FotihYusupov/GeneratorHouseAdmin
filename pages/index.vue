@@ -1,9 +1,12 @@
 <!-- pages/CardSectionPage.vue -->
 <template>
-  <header class="mt-2 p-3 rounded flex justify-between" >
-    <img src="../public/logo.png"/>
+  <header class="mt-2 p-3 rounded flex justify-between items-center" >
+    <img src="../public/logo.png" width="54" height="54"/>
+    <p></p>
+    <p></p>
     <h1 class="text-4xl font-bold ">Admin panel</h1>
     <div class="flex items-center">
+      <NuxtLink class="focus:outline-none text-white bg-blue-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900" to="/brands">Brandlar</NuxtLink>
       <NuxtLink to="/change" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Parolni O'zgartirish</NuxtLink>
       <button @click="logOut" type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Log Out</button>
       <NuxtLink to="/rus" class="ml-2" @click="lang = !lang">
@@ -24,7 +27,6 @@
   <div class="mx-auto mt-8">
     <div class="flex justify-between mb-4">
       <h2 class="text-3xl font-bold mb-4">Kategoriyalar</h2>
-      <NuxtLink class="text-3xl font-bold mb-4 hover:opacity-50 transition" to="/brands">Brandlar</NuxtLink>
     </div>
     <div class="sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       <ul class="flex justify-between flex-wrap mb-20">
@@ -40,6 +42,24 @@
   </div>
 
 
+  <div class="mt-18 mb-12 p-4 rounded bg-neutral-200">
+    <h2 class="text-2xl font-bold">Admin panelini ishlatish boyicha qo'llanma.</h2>
+    <h3 class="mt-2 text-xl font-bold">1.Rasmlarni yuklash boyicha.</h3>
+    <p class="pb-4 mb-4 border-b-4 border-white">Mahsulot rasmlari faqatgina .png farmatda bo'lishishi kerak.</p>
+    <h3 class="mt-2 text-xl font-bold">2.Mahsulot ma'lumotlari.</h3>
+    <p class="pb-4 mb-4 border-b-4 border-white">
+      Agar mahsulotning yoqilg'i baki mavjud bo'lsa qo'shimcha ma'lumotlar qismida tarifiga doimo "Bak hajmi" deb yozilishi kerak. Agarda mahsulotning Volti bolsa "Bak hajmi" kabi "kva" deb yozilishi shart! <br/>
+      Rus Tilida: <br/>
+      Bak hajmi = Емкость бака,<br/>
+      kVa = кВт
+    </p>
+    <h3 class="mt-2 text-xl font-bold">3.Login parol.</h3>
+    <p>Login va parolni hech qachon hech kimga bermang.</p>
+    <p class="pb-4 mb-4 border-b-4 border-white">Admin panelidagi login va parolni ehtiyoj bo'lmasa o'zgartrimaslikga harakat qiling.</p>
+    <h3 class="mt-2 text-xl font-bold">4.Xatolik</h3>
+    <p class="pb-4 mb-4 border-b-4 border-white">Admin panelida yoki web sahifada qandaydir xatolik yuz bersa admin panelidagi contact orqali kompaniya bilan a'loqaga chiqing.</p>
+  </div>
+
   <footer class="mb-16">
     <div class="w-96 ml-auto">
       <h2 class="text-2xl">"Generator House" admin paneli</h2>
@@ -51,7 +71,7 @@
     </div>
     <div>
       <p class="text-xl"><b class="mr-2">Texnik yordam: </b><a href="tel:+998944125626">+998 (94) 412-56-26</a></p>
-      <p class="text-xl"><b class="mr-2">Telegram:</b><a href="https://t.me/HyperNova_PM">@HyperNova_PM</a></p>
+      <p class="text-xl"><b class="mr-2">Telegram:</b><a href="https://t.me/HyperNova_Inc">@HyperNova_Inc</a></p>
     </div>
     <div>
     </div>

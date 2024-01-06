@@ -1,9 +1,10 @@
-<!-- pages/CardSectionPage.vue -->
 <template>
-  <header class="mt-2 p-3 rounded flex justify-between" >
-    <img src="~/public/logo.png"/>
+  <header class="mt-2 p-3 rounded flex justify-between items-center">
+    <img src="~/public/logo.png" width="54" height="54"/>
+    <span class="w-1"></span>
     <h1 class="text-4xl font-bold ">Панель администратора</h1>
     <div class="flex items-center">
+      <!-- <NuxtLink class="focus:outline-none text-white bg-blue-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900" to="/brands">Бренды</NuxtLink> -->
       <button @click="logOut" type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Bыйти</button>
       <NuxtLink to="/" class="ml-2" @click="lang = !lang">
         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
@@ -41,7 +42,6 @@
   <div class="mx-auto mt-8">
     <div class="flex justify-between mb-4">
       <h2 class="text-3xl font-bold mb-4">Категории</h2>
-      <NuxtLink class="text-3xl font-bold mb-4 hover:opacity-50 transition" to="/brands">Бренды</NuxtLink>
     </div>
     <div class="sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       <ul class="flex justify-between flex-wrap mb-20">
@@ -56,7 +56,6 @@
     </div>
   </div>
 
-
   <footer class="mb-16">
     <div class="w-96 ml-auto">
       <h2 class="text-2xl">Панель администратора "Generator House"</h2>
@@ -68,7 +67,7 @@
     </div>
     <div>
       <p class="text-xl"><b class="mr-2">Техническая поддержка: </b><a href="tel:+998944125626">+998 (94) 412-56-26</a></p>
-      <p class="text-xl"><b class="mr-2">Телеграмм:</b><a href="https://t.me/HyperNova_PM">@HyperNova_PM</a></p>
+      <p class="text-xl"><b class="mr-2">Телеграмм:</b><a href="https://t.me/HyperNova_Inc">@HyperNova_Inc</a></p>
     </div>
     <div>
     </div>
