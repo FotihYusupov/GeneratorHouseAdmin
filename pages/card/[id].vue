@@ -28,7 +28,7 @@
                 </div>
                 <div class="place-content-end place-self-end  w-full">
                     <NuxtLink :to="'/edit/' + product._id" :id="product._id" class="block text-center font-bold w-full rounded cursor-pointer mt-auto p-2 text-white bg-blue-600">O'zgartirish</NuxtLink>
-                    <span :id="product._id" @click="deleteProduct" class="block text-center font-bold w-full rounded cursor-pointer mt-2 p-2 text-white bg-red-600" >Delete</span>
+                    <span :id="product._id" @click="deleteProduct" class="block text-center font-bold w-full rounded cursor-pointer mt-2 p-2 text-white bg-red-600" >O'chirish</span>
                 </div>
             </li>
         </ul>
