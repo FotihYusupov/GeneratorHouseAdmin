@@ -1,6 +1,6 @@
 <template>
     <div class="mt-3">
-        <div class="fixed z-[10000] w-[70%] bg-white top-0 p-5 flex justify-between">
+        <div class="fixed z-[10000] w-[80%] bg-white top-0 p-5 flex justify-between">
             <NuxtLink to="/" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-600">Asosiy Sahifa</NuxtLink>
             <p v-if="categories.filter(e => e._id === id)[0]" class="text-3xl">{{ categories.filter(e => e._id === id)[0].category_name }}</p>
             <NuxtLink :to="'/add/' + id" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-600">Mahsulot Qo'shish</NuxtLink>
