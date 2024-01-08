@@ -1,7 +1,7 @@
 <template>
     <div class="flex justify-between items-center mt-5 mb-5">
-        <button @click="openAddModal()" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-600">Brand Qo'shish</button>
         <NuxtLink to="/" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">Asosiy Sahifa</NuxtLink>
+        <button @click="openAddModal()" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-600">Brand Qo'shish</button>
     </div>
     <div class="mt-2">
         <ul class="flex flex-wrap justify-between">

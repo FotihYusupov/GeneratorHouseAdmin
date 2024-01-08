@@ -221,7 +221,7 @@
         const res = await axios.put(`https://api.generatorhouse.uz/api/offer/${id}`, data, {
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${token.value}`,
+                Authorization: `Bearer ${token.value}`,w
             },
         }) 
         openSale.value = !openSale.value

@@ -1,6 +1,6 @@
 <template>
     <div v-if="categories.length > 0" class="mt-4">
-        <div class="flex justify-between">
+        <div class=" flex justify-between">
             <NuxtLink :to="'/card/' + id" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-600">Asosiy Sahifa</NuxtLink>
             <h1 class="text-4xl font-bold">{{ categories.filter(e => e._id === id)[0].category_name }}</h1>
             <span></span>
@@ -62,7 +62,7 @@
                         <div id="inputsWrapper"></div>
                     </div>
                 </div>
-                    <button class="float-right bg-blue-600 max-w-full w-56 text-white py-2 px-4 rounded-md hover:bg-blue-600">Qo'shish</button>
+                <button id="addProductBtn" class="float-right bg-blue-600 max-w-full w-56 text-white py-2 px-4 rounded-md hover:bg-blue-600">Qo'shish</button>
             </form>
         </div>
     </div>
@@ -141,6 +141,7 @@
 
     const addProduct = async (e) => {
         e.preventDefault()
+        addProductBtn.disabled = true
         const formData = new FormData()
         const information = []
         try {
@@ -179,6 +180,7 @@
             e.target.reset();
             inputsWrapper.innerHTML = ''
             addElement()
+            addProductBtn.disabled = false
             await navigateTo(`/card/${id}`)
         } catch (error) {
             console.log(error)

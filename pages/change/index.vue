@@ -1,6 +1,6 @@
 <template>
     <header class="mt-2 p-3 rounded flex justify-between items-center" >
-        <img src="/logo.png"/>
+        <img src="/logo.png" width="54" height="54">
         <h1 class="text-3xl font-bold ">User Name va Parolni o'zgartirish</h1>
         <div class="flex items-center">
             <NuxtLink to="/" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900">Asosiy Sahifa</NuxtLink>
@@ -19,7 +19,6 @@
         <div class="flex items-center justify-between">
           <button @click.prevent="login" class="w-full bg-blue-600 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-transform transform hover:scale-105">Kirish</button>
         </div>
-        <a class="block mt-2" href="tel:+998944125626">Texnik Yordam: +998 (94) 412-56-26</a>
       </form>
     </div>
   </template>

@@ -62,7 +62,7 @@
                         <div id="inputsWrapper"></div>
                     </div>
                 </div>
-                <button class="float-right bg-blue-600 max-w-full w-56 text-white py-2 px-4 rounded-md hover:bg-blue-600">Добавить</button>
+                <button id="addProductBtn" class="float-right bg-blue-600 max-w-full w-56 text-white py-2 px-4 rounded-md hover:bg-blue-600">Добавить</button>
             </form>
         </div>
     </div>
@@ -141,6 +141,7 @@
 
     const addProduct = async (e) => {
         e.preventDefault()
+        addProductBtn.disabled = true
         const formData = new FormData()
         const information = []
         try {
@@ -179,6 +180,7 @@
             e.target.reset();
             inputsWrapper.innerHTML = ''
             addElement()
+            addProductBtn.disabled = false
             await navigateTo(`/rus/card/${id}`)
         } catch (error) {
             console.log(error)

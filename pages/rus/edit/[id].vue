@@ -1,7 +1,7 @@
 <template>
     <div v-if="findProduct">
         <div class="flex flex-wrap justify-between mt-5">
-            <NuxtLink :to="'/card/' + findProduct.category._id" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-600">Главная Страница</NuxtLink>
+            <NuxtLink :to="'/rus/card/' + findProduct.category._id" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-600">Главная Страница</NuxtLink>
             <h1 class="text-4xl font-bold">Изменить Продукт</h1>
             <span></span>
         </div>
@@ -16,8 +16,8 @@
                         <label class="block text-gray-700 text-lg w-full font-bold mb-2" for="productPrice">Цена продукта (Необязательно)</label>
                         <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" id="productPrice" :value="findProduct.product_price" placeholder="Цена продукта">
                         <div v-if="!findProduct.offer">
+                            <p v-if="!openSale" @click="openSale = !openSale" class="m-0 mt-2 text-center ml-36 mb-1 p-1 rounded bg-blue-600 text-white w-44 cursor-pointer">Применить Скидку</p>
                             <form @submit="addOffer" v-if="openSale" class="w-full mt-3 mb-2">
-                                <p v-if="!openSale" @click="openSale = !openSale" class="m-0 mt-2 text-center ml-48 mb-1 p-1 rounded bg-blue-600 text-white w-18 cursor-pointer">Применить Скидку</p>
                                 <label class="block text-gray-700 text-base w-full font-bold mb-2" for="sale">Введите скидочную цену продукта.</label>
                                 <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 mb-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" id="sale" placeholder="Скидочная цена продукта" required>
                                 <button class="w-full bg-blue-600 max-w-full text-white py-2 px-4 rounded-md hover:bg-blue-600">Применить Скидку</button>

@@ -6,13 +6,12 @@
         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500" id="loginUserName" type="text" placeholder="Enter your username"/>
       </div>
       <div class="mb-6">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password</label>
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Parol</label>
         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500" id="loginPassword" type="password" placeholder="Enter your password"/>
       </div>
       <div class="flex items-center justify-between">
         <button @click.prevent="login" class="w-full bg-blue-600 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-transform transform hover:scale-105">Sign In</button>
       </div>
-      <a class="block mt-2" href="tel:+998944125626">Texnik Yordam: +998 (94) 412-56-26</a>
     </form>
   </div>
 </template>

@@ -1,12 +1,13 @@
 <template>
     <div class="mt-3">
-        <div class="flex justify-between">
+        <div class="fixed z-[10000] w-[70%] bg-white top-0 p-5 flex justify-between">
             <NuxtLink to="/rus/" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-600">Главная Страница</NuxtLink>
+            <p v-if="categories.filter(e => e._id === id)[0]" class="text-3xl">{{ categories.filter(e => e._id === id)[0].category_name }}</p>
             <NuxtLink :to="'/rus/add/' + id" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-600">Добавить Продукт</NuxtLink>
         </div>
         <div v-show="actions.loading"><loading/></div>
         <p class="mt-24 text-3xl text-center" v-if="products?.length == 0">Нет продуктов в этой категории.</p>
-        <ul class="mt-5 flex flex-wrap  justify-around">
+        <ul class="mt-24 flex flex-wrap  justify-around">
             <li
                 v-for="product in products"
                 :key="product._id"
@@ -41,6 +42,14 @@
 
     const token = ref('')
 
+    const categories = ref([])
+
+    const getCategories = async () => {
+        const response = await axios.get('https://api.generatorhouse.uz/api/ru/categories');
+        categories.value = response.data;
+    }
+    getCategories()
+
     onMounted(async() => {
         token.value = await JSON.parse(localStorage.getItem('token'))
         if(!token) {
@@ -53,7 +62,6 @@
     const counter = ref(0);
 
     const products = ref()
-    const categories = ref([])
 
     const actions = ref({
         loading: false,
