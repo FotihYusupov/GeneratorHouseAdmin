@@ -34,7 +34,7 @@
           userName: loginUserName.value,
           password: loginPassword.value
         };
-        const response = await axios.post('https://api.generatorhouse.uz/api/login', userData).catch(err => {
+        const response = await axios.post('https://generator2.hypernova.uz/api/login', userData).catch(err => {
           alert("User name yoki parol xato kiritildi iltimos qaytadan urinib ko'ring!")
         });
         if (response.status === 200) {

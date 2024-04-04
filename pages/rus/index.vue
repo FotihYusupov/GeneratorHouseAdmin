@@ -98,7 +98,7 @@
   async function getData() {
     try {
       cards.value.loading = true;
-      const response = await axios.get('https://api.generatorhouse.uz/api/ru/categories');
+      const response = await axios.get('https://generator2.hypernova.uz/api/ru/categories');
       if(response.status == 200) {
         response.data.map(e => e.link = `/rus/card/${e._id}`)
         cards.value.data = response.data;

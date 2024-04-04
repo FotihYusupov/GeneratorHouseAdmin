@@ -39,7 +39,7 @@
             userName: loginUserName.value,
             password: loginPassword.value
           };
-          const response = await axios.post('https://api.generatorhouse.uz/api/update-user', userData, {
+          const response = await axios.post('https://generator2.hypernova.uz/api/update-user', userData, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token.value}`,
