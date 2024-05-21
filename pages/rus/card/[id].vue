@@ -45,7 +45,7 @@
     const categories = ref([])
 
     const getCategories = async () => {
-        const response = await axios.get('https://generator2.hypernova.uz/api/ru/categories');
+        const response = await axios.get('https://api.generatorhouse.uz/api/ru/categories');
         categories.value = response.data;
     }
     getCategories()
@@ -70,7 +70,7 @@
     async function getData() {
         try {
             actions.value.loading = true
-            const response = await axios.get(`https://generator2.hypernova.uz/api/ru/category/${id}`);
+            const response = await axios.get(`https://api.generatorhouse.uz/api/ru/category/${id}`);
             if(response.status == 200) {
                 response.data.map(e => e.link = `/card/${e._id}`)
                 products.value = response.data
@@ -86,7 +86,7 @@
 
     const deleteProduct = async (e) => {
         actions.value.loading = true;
-        await axios.delete(`https://generator2.hypernova.uz/api/ru/delete/${e.target.id}`,  {
+        await axios.delete(`https://api.generatorhouse.uz/api/ru/delete/${e.target.id}`,  {
             headers: {
                 Authorization: `Bearer ${token.value}`,
             },

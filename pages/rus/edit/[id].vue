@@ -142,7 +142,7 @@
         if(!token) {
             await navigateTo('/auth');
         }
-        const res = await axios.get(`https://generator2.hypernova.uz/api/ru/product/${id}`)
+        const res = await axios.get(`https://api.generatorhouse.uz/api/ru/product/${id}`)
         findProduct.value = res.data
         counter.value = findProduct.value.information.length
     })
@@ -156,7 +156,7 @@
     const brands = ref([])
     const getBrands = async () => {
         try {
-            const res = await axios.get('https://generator2.hypernova.uz/api/brands')
+            const res = await axios.get('https://api.generatorhouse.uz/api/brands')
             if(res.status === 200) {
                 brands.value = res.data
             }
@@ -190,14 +190,14 @@
             if(productPrice.value.length > 0) {
                 data.productPrice = productPrice.value
             }
-            const response = await axios.put(`https://generator2.hypernova.uz/api/ru/update-product/${id}`, data, {
+            const response = await axios.put(`https://api.generatorhouse.uz/api/ru/update-product/${id}`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token.value}`,
                 },
             });
             const formData = new FormData(e.target);
-            const res = await axios.put(`https://generator2.hypernova.uz/api/ru/add-img/${id}`, formData, {
+            const res = await axios.put(`https://api.generatorhouse.uz/api/ru/add-img/${id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -217,7 +217,7 @@
         e.preventDefault();
         const data = {}
         data.newPrice = sale.value
-        const res = await axios.put(`https://generator2.hypernova.uz/api/ru/offer/${id}`, data, {
+        const res = await axios.put(`https://api.generatorhouse.uz/api/ru/offer/${id}`, data, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token.value}`,
@@ -228,7 +228,7 @@
     }
     const data = {}
     const deleteOffer = async () => {
-        const res = await axios.put(`https://generator2.hypernova.uz/api/ru/delete-offer/${id}`, data, {
+        const res = await axios.put(`https://api.generatorhouse.uz/api/ru/delete-offer/${id}`, data, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token.value}`,

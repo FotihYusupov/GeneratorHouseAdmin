@@ -34,7 +34,7 @@
     import axios from "axios";
     const brands = ref([]);
     const getData = async () => {
-        const res = await axios.get('https://generator2.hypernova.uz/api/brands')
+        const res = await axios.get('https://api.generatorhouse.uz/api/brands')
         brands.value = res.data;
     };
     getData();
@@ -61,7 +61,7 @@
 
     const deleteBrand = async (id) => {
         try {
-            const res = await axios.delete(`https://generator2.hypernova.uz/api/delete-brand/${id}`)
+            const res = await axios.delete(`https://api.generatorhouse.uz/api/delete-brand/${id}`)
             if(res.status === 200) {
                 getData()
             }
@@ -76,7 +76,7 @@
             const data = {}
             data.brandName = brandName.value
             console.log(data)
-            const res = await axios.post('https://generator2.hypernova.uz/api/add-brand', data, {
+            const res = await axios.post('https://api.generatorhouse.uz/api/add-brand', data, {
                 header: {
                     'Content-type': 'application/json'
                 }
@@ -96,7 +96,7 @@
             const data = {}
             data.brandName = editBrandName.value
             console.log(data)
-            const res = await axios.put(`https://generator2.hypernova.uz/api/update-brand/${findBrandId.value}`, data, {
+            const res = await axios.put(`https://api.generatorhouse.uz/api/update-brand/${findBrandId.value}`, data, {
                 header: {
                     'Content-type': 'application/json'
                 }

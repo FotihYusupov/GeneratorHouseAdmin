@@ -115,7 +115,7 @@
 
     const categories = ref([])
     const getCategories = async () => {
-        const response = await axios.get('https://generator2.hypernova.uz/api/ru/categories');
+        const response = await axios.get('https://api.generatorhouse.uz/api/ru/categories');
         categories.value = response.data;
     }
     getCategories()
@@ -123,7 +123,7 @@
     const brands = ref([])
     const getBrands = async () => {
         try {
-            const res = await axios.get('https://generator2.hypernova.uz/api/brands')
+            const res = await axios.get('https://api.generatorhouse.uz/api/brands')
             if(res.status === 200) {
                 brands.value = res.data
             }
@@ -164,14 +164,14 @@
             if(productPrice.value.length > 0) {
                 data.productPrice = productPrice.value
             }
-            const response = await axios.post(`https://generator2.hypernova.uz/api/ru/add-product`, data, {
+            const response = await axios.post(`https://api.generatorhouse.uz/api/ru/add-product`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token.value}`,
                 },
             });
             const formData = new FormData(e.target);
-            const res = await axios.put(`https://generator2.hypernova.uz/api/ru/add-img/${response.data._id}`, formData, {
+            const res = await axios.put(`https://api.generatorhouse.uz/api/ru/add-img/${response.data._id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
