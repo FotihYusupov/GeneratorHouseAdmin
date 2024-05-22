@@ -75,10 +75,10 @@
                             <span><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path opacity="1" fill="#1E3050" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg></span>
                         </div>
                         <div id="inputsWrapper">
-                            <span v-for="product, index in findProduct.information" class="w-full flex justify-between items-center" id="wrapper-1">
+                            <span v-for="product, index in findProduct.information" class="w-full flex justify-between items-center" :id="'wrapper-' + index">
                                 <input class="w-36 shadow mb-2 appearance-none border-2 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" :value="product.key" :id="'key-' + (index + 1)" placeholder="Ta`rifi"/>
                                 <input class="w-36 shadow mb-2 appearance-none border-2 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-600" :value="product.value" :id="'value-' + (index + 1)" placeholder="Qiymati"/>
-                                <img @click="deleteElement" class="cursor-pointer" id="1" src="/trash-can-solid.svg">
+                                <img @click="deleteElement" class="cursor-pointer" :id="index" src="/trash-can-solid.svg">
                             </span>
                         </div>
                     </div>
