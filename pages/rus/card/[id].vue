@@ -23,7 +23,7 @@
                 />
                 <div class="h-[100%]">
                     <h2 class="text-2xl truncate"><b>{{ product.product_title }}</b></h2>
-                    <p v-if="product.product_price > 0"><b>Цена:</b> {{ product.product_price }} сум</p>
+                    <p v-if="product.product_price > 0"><b>Цена:</b> {{ formatNumber(product.product_price) }} сум</p>
                     <p>{{ product.new_price > 0 ? `Скидка: ${product.new_price} сум` : '' }}</p>
                     <p class="text-sm font-medium line-clamp-3">{{ product.product_desc }}</p>
                 </div>
@@ -56,6 +56,10 @@
             await navigateTo('/auth');
         }
     })
+
+    function formatNumber(number) {
+        return number.toLocaleString('de-DE');
+    }
 
     const { id } = useRoute().params;
 

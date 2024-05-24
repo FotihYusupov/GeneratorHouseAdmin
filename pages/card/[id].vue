@@ -23,7 +23,7 @@
                 />
                 <div class="h-[100%]">
                     <h2 class="text-2xl truncate"><b>{{ product.product_title }}</b></h2>
-                <p v-if="product.product_price > 0"><b>Narxi:</b> {{ product.product_price }} so'm</p>
+                <p v-if="product.product_price > 0"><b>Narxi:</b> {{ formatNumber(product.product_price) }} so'm</p>
                 <p>{{ product.new_price > 0 ? `Chegirma: ${product.new_price} so'm` : '' }}</p>
                 <p class="text-sm font-medium line-clamp-3">{{ product.product_desc }}</p>
                 </div>
@@ -50,6 +50,10 @@
     })
 
     const categories = ref([])
+
+    function formatNumber(number) {
+        return number.toLocaleString('de-DE');
+    }
 
     const getCategories = async () => {
         const response = await axios.get('https://api.generatorhouse.uz/api/categories');
